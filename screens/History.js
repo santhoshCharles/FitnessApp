@@ -9,24 +9,46 @@ import {
     StatusBar,
     Image,
     TouchableOpacity,
+    TextInput,
+    KeyboardAvoidingView
 } from 'react-native';
 import {
     Colors,
-  } from 'react-native/Libraries/NewAppScreen';
+} from 'react-native/Libraries/NewAppScreen';
 import strings from '../constant'
 import { LineChart, Grid, BarChart } from 'react-native-svg-charts'
-
+let heights,weights,goal;
 class History extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-           height:155,
-           weight:60,
-           goals:8000
+            height: 155,
+            weight: 60,
+            goals: 8000,
+            openModal: false
         };
     }
-    handleGoal=()=>{
-
+    handleEdit = () => {
+        console.log("edit");
+        heights=this.state.height;
+        weights=this.state.weight;
+        goal=this.state.goals;
+        this.setState({ openModal: true })
+    }
+    handleSave = () => {
+        this.setState({height:heights,weight:weights,goals:goal,openModal:false})
+    }
+    onChangeEdit = (value,text)=> {
+        console.log("test",value,text);
+        if(text === "height"){
+            heights=value
+        }
+        if(text === "weight"){
+            weights=value
+        }
+        if(text === "goal"){
+            goal=value
+        }
     }
     render() {
         const fill = 'rgb(134, 65, 244)'
@@ -58,24 +80,61 @@ class History extends React.Component {
                         <BarChart style={{ height: 200 }} data={data} svg={{ fill }} contentInset={{ top: 30, bottom: 30 }}>
                             <Grid />
                         </BarChart>
-                </View>
+                    </View>
                     <Text style={styles.contentAlign}>{strings.CalBurnt}</Text>
                 </View>
                 <View style={[styles.flexDisplay, styles.justifyStyle, styles.cardStyledailyActivity]} >
-                        <View>
-                            <Text style={styles.cardHeaderStyle}>Height</Text>
-                            <Text style={styles.cardContentStyle}>155 cms</Text>
+                    <View>
+                        <Text style={styles.cardHeaderStyle}>Height</Text>
+                        {this.state.openModal ? <TextInput
+                            style={{ height: 40 }}
+                         onChangeText={(event) => this.onChangeEdit(event,"height")}
+                        // value={value}
+                        /> :
+                            <Text style={styles.cardContentStyle}>{this.state.height} cms</Text>
+                        }
+                    </View>
+                    <View>
+                        <Text style={styles.cardHeaderStyle}>Weight</Text>
+                        {this.state.openModal ? <TextInput
+                            style={{ height: 40 }}
+                        onChangeText={(event) => this.onChangeEdit(event,"weight")}
+                        // value={value}
+                        /> :
+                            <Text style={styles.cardContentStyle}>{this.state.weight} kgs</Text>
+                        }
+                    </View>
+                    <View>
+                        <Text style={styles.cardHeaderStyle}>Goal</Text>
+                        {this.state.openModal ? <TextInput
+                            style={{ height: 40 }}
+                        onChangeText={(event) => this.onChangeEdit(event,"goal")}
+                        // value={value}
+                        /> :
+                            <Text style={styles.cardContentStyle}>{this.state.goals}</Text>
+                        }
+                    </View>
+                    {this.state.openModal
+
+                        ?
+                        <View style={[styles.justifyStyle]}>
+                            <TouchableOpacity style={styles.editStyel} onPress={()=>{this.handleSave()}}>
+                                <Image source={require('../images/checked.png')} style={[styles.imageStyle, styles.editIcon]} />
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <Image source={require('../images/close.png')} style={[styles.imageStyle, styles.editIcon]} />
+                            </TouchableOpacity>
                         </View>
-                        <View>
-                            <Text style={styles.cardHeaderStyle}>Weight</Text>
-                            <Text style={styles.cardContentStyle}>60 kgs</Text>
-                        </View>
-                        <View>
-                            <Text style={styles.cardHeaderStyle}>Goal</Text>
-                            <Text style={styles.cardContentStyle}>8000</Text>
-                        </View>
+                        :
+                        <TouchableOpacity onPress={() => this.handleEdit()} style={styles.editStyle}>
+                            <Image source={require('../images/pen.png')} style={[styles.imageStyle, styles.cardImgageStyle]} />
+                        </TouchableOpacity>
+
+                    }
+
                 </View>
             </View>
+
         );
     }
 
@@ -85,33 +144,33 @@ const styles = StyleSheet.create({
     screenStyle: {
         backgroundColor: "#f0f2ff",
         height: "85%",
-        padding:10
+        padding: 10
     },
     flexDisplay: {
         flexDirection: "row"
     },
-    lineChartStyle:{
-        display:"flex",
-        justifyContent:"center",
-        paddingLeft:10
+    lineChartStyle: {
+        display: "flex",
+        justifyContent: "center",
+        paddingLeft: 10
     },
-    headStyle:{
-        fontSize:15,
-        fontWeight:"bold",
-        paddingLeft:10
+    headStyle: {
+        fontSize: 15,
+        fontWeight: "bold",
+        paddingLeft: 10
     },
     titleStyle: {
         fontSize: 18,
         fontWeight: "bold",
-        paddingTop:10,
-        paddingBottom:5,
-        paddingLeft:20
+        paddingTop: 10,
+        paddingBottom: 5,
+        paddingLeft: 20
     },
-    backIconStyle:{
+    backIconStyle: {
         width: 20,
         height: 20,
-        marginTop:13,
-        marginLeft:10
+        marginTop: 13,
+        marginLeft: 10
     },
     cardStyle: {
         elevation: 5,
@@ -122,9 +181,9 @@ const styles = StyleSheet.create({
         paddingTop: 5
     },
     contentAlign: {
-        display:"flex",
-        marginLeft:150,
-        fontSize:15
+        display: "flex",
+        marginLeft: 150,
+        fontSize: 15
     },
     justifyStyle: {
         justifyContent: "space-evenly"
@@ -138,8 +197,25 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingTop: 5
     },
-    cardContentStyle:{
-        paddingTop:10
+    cardContentStyle: {
+        paddingTop: 10
+    },
+    imageStyle: {
+        width: "100%",
+        height: 100,
+        borderRadius: 5
+    },
+    cardImgageStyle: {
+        width: 20,
+        height: 20,
+    },
+    editIcon: {
+        paddingTop: 5,
+        width: 15,
+        height: 15,
+    },
+    editStyle: {
+        paddingTop: 15
     }
 });
 
