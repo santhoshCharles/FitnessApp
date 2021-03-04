@@ -10,8 +10,40 @@ import {
 } from 'react-native';
 
 import strings from '../constant'
+import Fitness from '@ovalmoney/react-native-fitness';
 
-const Home: () => React$Node = () => {
+class Home extends React.Component{
+    componentDidMount() {
+        const permissions = [
+            { kind: Fitness.PermissionKinds.Steps, access: Fitness.PermissionAccesses.Write },
+          ];
+        const getStepsData = {startDate: '2021-03-04', endDate: '2021-03-05', interval: "0.5 minute"} 
+          console.log("permissions", permissions)
+          setInterval(()=>
+          { 
+          Fitness.isAuthorized(permissions)
+            .then((authorized) => {
+              // Do something
+              console.log("authorized", authorized)
+              if(!authorized){
+                Fitness.requestPermissions(permissions).then((data) => {
+                    console.log("data", data)
+                    Fitness.getSteps(getStepsData).then((data) => {
+                        console.log("getSteps", data[0].quantity, getStepsData);
+                    })
+                })
+              } else {
+                Fitness.getSteps(getStepsData).then((data) => {
+                    console.log("getSteps",  data[0].quantity, getStepsData);
+                })
+              }
+            })
+            .catch((error) => {
+              // Do something
+            });
+        }, 3000);
+    }
+    render() {
     return (
         <View style={styles.appStyle}>
             <View style={styles.containerStyle}>
@@ -40,6 +72,7 @@ const Home: () => React$Node = () => {
             </View>
         </View>
     );
+    }
 };
 
 const styles = StyleSheet.create({
