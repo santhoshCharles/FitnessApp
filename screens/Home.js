@@ -14,8 +14,8 @@ import Activity from "./Activity";
 import strings from '../constant'
 const dateFormat = 'YYYY/MM/DD HH:mm:ss';
 class Home extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
            date:[],
         };
@@ -35,6 +35,7 @@ class Home extends React.Component {
     }
     handledailyActivity = (data) => {
         console.log("open",data)
+        this.props.changeParticularDate(data)
     }
     render() {
         console.log("this.state",this.state.date)

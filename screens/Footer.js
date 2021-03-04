@@ -7,22 +7,31 @@ import {
     View,
     Text,
     StatusBar,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 import strings from '../constant'
 class Footer extends React.Component {
+    constructor() {
+        super()
+      }
     render() {
+        console.log('this', this)
         return (
             <View style={styles.footerStyle}>
                 <View style={[styles.flexDisplay, styles.justifyStyle]}>
+                    <TouchableOpacity onPress={()=>this.props.changeTab()}>
                     <View style={[styles.footerCardStyle, styles.contentAlign]}>
                         <Image source={require('../images/home.png')} style={styles.adImageStyle} style={styles.cardImgageStyle} />
                         <Text>{strings.Home}</Text>
                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>this.props.changeTab()}>
                     <View style={[styles.footerCardStyle, styles.contentAlign]}>
                         <Image source={require('../images/activity.png')} style={styles.adImageStyle} style={styles.cardImgageStyle} />
                         <Text>{strings.Activity}</Text>
                     </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         );

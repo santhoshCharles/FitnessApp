@@ -29,14 +29,42 @@ import Activity from './screens/Activity'
 
 
 
-const App: () => React$Node = () => {
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      showHome: true,
+      selecteddate: '',
+      showParticularDate: false
+    }
+  }
+
+  changeTab = () => {
+    const {showHome} = this.state
+    this.setState({showHome: !showHome})
+  }
+
+  changeParticularDate = (data) => {
+    console.log('data app', data)
+    const {showParticularDate} = this.state
+    this.setState({showParticularDate: true, selecteddate: data.date, showHome: false})
+  }
+
+  changeParticularDateFlase =()=> {
+    this.setState({showParticularDate: false, showHome: true})
+  }
+  
+  render() {
+    const {showHome, showParticularDate} = this.state
+    console.log('showHome', showHome, showParticularDate)
   return (
    <View>
-     {/* <Home/> */}
-     <Activity/>
-     <Footer/>
+     { !showParticularDate && showHome ? <Home changeParticularDate={(data)=>this.changeParticularDate(data)}/> : <View/>}
+     { !showHome && showParticularDate ? <Activity changeParticularDateFlase={()=>this.changeParticularDateFlase()}/> : <View/>}
+     <Footer showHome={showHome} changeTab={()=>this.changeTab()}/>
    </View>
   );
+  }
 };
 
 const styles = StyleSheet.create({
