@@ -21,7 +21,7 @@ class Activity extends React.Component {
         return (
             <View style={styles.screenStyle}>
                 <View style={styles.flexDisplay}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>this.props.changeParticularDateFlase()}>
                         <Image source={require('../images/left-arrow.png')} style={styles.backIconStyle} />
                     </TouchableOpacity>
                 <Text style={styles.titleStyle}>Daily Activity</Text>
@@ -50,7 +50,7 @@ class Activity extends React.Component {
 const styles = StyleSheet.create({
     screenStyle: {
         backgroundColor: "#f0f2ff",
-        height: "80%",
+        height: "83%",
     },
     flexDisplay: {
         flexDirection: "row"

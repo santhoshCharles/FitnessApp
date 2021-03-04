@@ -56,7 +56,7 @@ class History extends React.Component {
         return (
             <View style={styles.screenStyle}>
                 <View style={styles.flexDisplay}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.changeParticularDateFlase()}>
                         <Image source={require('../images/left-arrow.png')} style={styles.backIconStyle} />
                     </TouchableOpacity>
                     <Text style={styles.titleStyle}>Activity</Text>
