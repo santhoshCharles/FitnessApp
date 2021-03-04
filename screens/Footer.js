@@ -33,7 +33,7 @@ class Footer extends React.Component {
 const styles = StyleSheet.create({
     footerStyle: {
         backgroundColor: "#f0f2ff",
-        height: 125
+        height: 100,
     },
     flexDisplay: {
         flexDirection: "row"
