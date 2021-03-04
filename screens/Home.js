@@ -59,12 +59,14 @@ class Home extends React.Component {
                                 <Image source={require('../images/shoes.png')} style={[styles.imageStyle,styles.cardImgageStyle]} />
                                 <Text style={[styles.cardHeaderStyle,styles.contentAlign]}>{strings.steps}</Text>
                             </View>
+                            <Text style={[styles.cardHeaderStyle,styles.contentAlign, {marginLeft: 40, fontWeight: "bold", color: "black", fontSize: 20}]}>{'1000'}</Text>
                         </View>
                         <View style={styles.cardStyletodayActivity}>
                         <View style={styles.flexDisplay}>
                                 <Image source={require('../images/calories.png')} style={[styles.imageStyle,styles.cardImgageStyle]} />
                                 <Text style={[styles.cardHeaderStyle,styles.contentAlign]}>{strings.calories}</Text>
                             </View>
+                            <Text style={[styles.cardHeaderStyle,styles.contentAlign, {marginLeft: 40, fontWeight: "bold", color: "black", fontSize: 20}]}>{'100'}</Text>
                         </View>
                     </View>
                     <View >
