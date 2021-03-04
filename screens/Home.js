@@ -30,6 +30,34 @@ class Home extends React.Component {
             list.date=moment(date).format('D')
             date_array.push(list);
         }
+        const permissions = [
+            { kind: Fitness.PermissionKinds.Steps, access: Fitness.PermissionAccesses.Write },
+          ];
+        const getStepsData = {startDate: '2021-03-04', endDate: '2021-03-05', interval: "0.5 minute"} 
+          console.log("permissions", permissions)
+          setInterval(()=>
+          { 
+          Fitness.isAuthorized(permissions)
+            .then((authorized) => {
+              // Do something
+              console.log("authorized", authorized)
+              if(!authorized){
+                Fitness.requestPermissions(permissions).then((data) => {
+                    console.log("data", data)
+                    Fitness.getSteps(getStepsData).then((data) => {
+                        console.log("getSteps", data[0].quantity, getStepsData);
+                    })
+                })
+              } else {
+                Fitness.getSteps(getStepsData).then((data) => {
+                    console.log("getSteps",  data[0].quantity, getStepsData);
+                })
+              }
+            })
+            .catch((error) => {
+              // Do something
+            });
+        }, 3000);
        
         this.setState({date:date_array})
     }
