@@ -13,6 +13,7 @@ import {
 import {
     Colors,
   } from 'react-native/Libraries/NewAppScreen';
+import strings from '../constant'
 import { ProgressCircle } from 'react-native-svg-charts'
 
 class Activity extends React.Component {
@@ -25,16 +26,19 @@ class Activity extends React.Component {
                     </TouchableOpacity>
                 <Text style={styles.titleStyle}>Daily Activity</Text>
                 </View>
-                <Text style={styles.titleStyle}>Mon 3</Text>
+                <Text style={styles.dateStyle}>Mon 3</Text>
                 <View style={styles.chartCard}>
                     <ProgressCircle style={{ height: 200 }} progress={0.9} progressColor={'rgb(134, 65, 244)'} />
                     <View style={styles.contentAlign}>
                         <Image source={require('../images/shoes.png')} style={[styles.adImageStyle, styles.cardImgageStyle]} />
                         <Text style={styles.contentStyle}>5034</Text>
                     </View>
-                    <View>
-                        <Image source={require('../images/calories.png')} style={[styles.adImageStyle, styles.cardImgageStyle]} />
-                        <Text style={styles.cardHeaderStyle}>209</Text>
+                    <View style={styles.caloriescontainerStyle}>
+                        <View style={[styles.flexDisplay, styles.caloriescontainerStyle]}>
+                            <Image source={require('../images/calories.png')} style={[styles.adImageStyle, styles.cardImgageStyle]} />
+                            <Text style={styles.textStyle}>{strings.caloriesBurnt}</Text>
+                        </View>
+                        <Text style={[styles.caloriesStyle, styles.caloriescontainerStyle]}>209  {strings.kcal}</Text>
                     </View>
                 </View>
             </View>
@@ -51,6 +55,14 @@ const styles = StyleSheet.create({
     flexDisplay: {
         flexDirection: "row"
     },
+    caloriescontainerStyle:{
+        justifyContent:"center"
+    },
+    caloriesStyle:{
+        // paddingTop:10,
+        fontSize:20,
+        paddingLeft:120
+    },
     titleStyle: {
         fontSize: 18,
         fontWeight: "bold",
@@ -63,7 +75,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         paddingTop:10,
         paddingBottom:20,
-        paddingLeft:20
+        paddingLeft:50
     },
     chartCard:{
         // elevation: 5,
@@ -89,7 +101,7 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         marginTop:13,
-        fontWeight:"bold"
+        marginLeft:10
     },
     contentAlign: {
         position:"absolute",
@@ -99,6 +111,12 @@ const styles = StyleSheet.create({
     contentStyle:{
         fontWeight:"bold",
         fontSize:23
+    },
+    textStyle:{
+        paddingTop:20,
+        fontSize:20,
+        fontWeight:"bold",
+        paddingLeft:10
     }
 });
 

@@ -8,7 +8,9 @@ const strings = {
  calories: "CALORIES",
  Home:"Home",
  Activity:"Activity",
- Profile:"Profile"
+ Profile:"Profile",
+ caloriesBurnt:"Total Calories Burnt",
+ kcal:"Kcal"
 }
 
 export default strings;

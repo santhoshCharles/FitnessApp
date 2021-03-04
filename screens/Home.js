@@ -55,14 +55,14 @@ class Home extends React.Component {
                     <View style={[styles.flexDisplay, styles.justifyStyle]}>
                         <View style={styles.cardStyletodayActivity}>
                             <View style={styles.flexDisplay}>
-                                <Image source={require('../images/shoes.png')} style={[styles.adImageStyle,styles.cardImgageStyle]} />
-                                <Text style={styles.cardHeaderStyle}>{strings.steps}</Text>
+                                <Image source={require('../images/shoes.png')} style={[styles.imageStyle,styles.cardImgageStyle]} />
+                                <Text style={[styles.cardHeaderStyle,styles.contentAlign]}>{strings.steps}</Text>
                             </View>
                         </View>
                         <View style={styles.cardStyletodayActivity}>
                         <View style={styles.flexDisplay}>
-                                <Image source={require('../images/calories.png')} style={[styles.adImageStyle,styles.cardImgageStyle]} />
-                                <Text style={styles.cardHeaderStyle}>{strings.calories}</Text>
+                                <Image source={require('../images/calories.png')} style={[styles.imageStyle,styles.cardImgageStyle]} />
+                                <Text style={[styles.cardHeaderStyle,styles.contentAlign]}>{strings.calories}</Text>
                             </View>
                         </View>
                     </View>
@@ -123,6 +123,11 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         borderRadius: 5
     },
+    imageStyle:{
+        width: "100%",
+        height: 200,
+        borderRadius: 5
+    },
     cardStyletodayActivity: {
         elevation: 5,
         width: 140,
@@ -148,9 +153,10 @@ const styles = StyleSheet.create({
     },
     cardImgageStyle: {
         width: 30,
-        height: 30
+        height: 30,
     },
     cardHeaderStyle:{
+        // paddingTop:5,
         fontSize: 15,
         color: "#979ba5"
     },
@@ -168,7 +174,8 @@ const styles = StyleSheet.create({
         // paddingTop: 20
     },
     contentAlign:{
-        alignItems:"center"
+        display:"flex",
+        justifyContent:"center"
     }
 });
 
