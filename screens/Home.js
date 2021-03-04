@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import Activity from "./Activity";
 import strings from '../constant'
+import Fitness from '@ovalmoney/react-native-fitness';
+
 const dateFormat = 'YYYY/MM/DD HH:mm:ss';
 class Home extends React.Component {
     constructor() {
