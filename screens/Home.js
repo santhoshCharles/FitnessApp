@@ -89,7 +89,7 @@ class Home extends React.Component {
 const styles = StyleSheet.create({
     appStyle: {
         backgroundColor: "#f0f2ff",
-        height: "83%",
+        height: "84%",
     },
     containerStyle: {
         marginTop: 16,

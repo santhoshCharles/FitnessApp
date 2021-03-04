@@ -25,7 +25,8 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import Home from './screens/Home';
 import Footer from './screens/Footer';
-import Activity from './screens/Activity'
+import Activity from './screens/Activity';
+import History from './screens/History';
 
 
 
@@ -35,33 +36,39 @@ class App extends React.Component {
     this.state = {
       showHome: true,
       selecteddate: '',
-      showParticularDate: false
+      showParticularDate: false,
+      historyShow: false
     }
   }
 
-  changeTab = () => {
-    const {showHome} = this.state
-    this.setState({showHome: !showHome})
+  changeTab = (tabName) => {
+  
+    if(tabName === "home") {
+    this.setState({showHome: true, showParticularDate: false, historyShow: false})
+    } else {
+      this.setState({showHome: false, showParticularDate: false, historyShow: true})
+    }
   }
 
   changeParticularDate = (data) => {
     console.log('data app', data)
     const {showParticularDate} = this.state
-    this.setState({showParticularDate: true, selecteddate: data.date, showHome: false})
+    this.setState({showParticularDate: true, selecteddate: data.date, showHome: false, historyShow: false})
   }
 
   changeParticularDateFlase =()=> {
-    this.setState({showParticularDate: false, showHome: true})
+    this.setState({showParticularDate: false, showHome: true, historyShow: false})
   }
   
   render() {
-    const {showHome, showParticularDate} = this.state
-    console.log('showHome', showHome, showParticularDate)
+    const {showHome, showParticularDate, historyShow} = this.state
+    console.log('showHome', showHome, showParticularDate, historyShow)
   return (
    <View>
-     { !showParticularDate && showHome ? <Home changeParticularDate={(data)=>this.changeParticularDate(data)}/> : <View/>}
-     { !showHome && showParticularDate ? <Activity changeParticularDateFlase={()=>this.changeParticularDateFlase()}/> : <View/>}
-     <Footer showHome={showHome} changeTab={()=>this.changeTab()}/>
+     { !showParticularDate && !historyShow  && showHome ? <Home changeParticularDate={(data)=>this.changeParticularDate(data)}/> : <View/>}
+     { !showHome && !historyShow && showParticularDate ? <Activity changeParticularDateFlase={()=>this.changeParticularDateFlase()}/> : <View/>}
+     { !showParticularDate && historyShow  && !showHome ? <History changeParticularDateFlase={()=>this.changeParticularDateFlase()}/> : <View/>}
+     <Footer showHome={showHome} changeTab={(tabName)=>this.changeTab(tabName)}/>
    </View>
   );
   }

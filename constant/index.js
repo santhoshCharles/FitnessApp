@@ -10,7 +10,10 @@ const strings = {
  Activity:"Activity",
  Profile:"Profile",
  caloriesBurnt:"Total Calories Burnt",
- kcal:"Kcal"
+ kcal:"Kcal",
+ lastStreak:"Last Streak",
+ stepsWalked:"Step walked",
+ CalBurnt:"Calories burnt"
 }
 
 export default strings;
