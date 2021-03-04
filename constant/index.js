@@ -3,7 +3,12 @@ const strings = {
  workOut: "Find A ",
  find: "Workout",
  todayActivity: "Today's Activity",
- steps: "STEPS"
+ dailyActivity: "Daily Activity",
+ steps: "STEPS",
+ calories: "CALORIES",
+ Home:"Home",
+ Activity:"Activity",
+ Profile:"Profile"
 }
 
 export default strings;

@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import {
     SafeAreaView,
     StyleSheet,
@@ -6,46 +7,88 @@ import {
     View,
     Text,
     StatusBar,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
-
+import Activity from "./Activity";
 import strings from '../constant'
-
-const Home: () => React$Node = () => {
-    return (
-        <View style={styles.appStyle}>
-            <View style={styles.containerStyle}>
-                <Text style={styles.headerTextStyle}> {`${strings.hello} Santhosh`} </Text>
-                <View style={styles.flexDisplay}>
-                    <Text style={styles.workOutStyle}>{strings.workOut}</Text>
-                    <Text style={styles.workOutStyle}>{strings.find} </Text>
-                </View>
-                <View>
-                    <Image source={require('../images/ad.png')} style={styles.adImageStyle} />
-                </View>
-                <View >
-                    <Text style={styles.todayActivityStyle}>{strings.todayActivity}</Text>
-                </View>
-                <View style={[styles.flexDisplay, styles.justifyStyle]}>
-                    <View style={styles.cardStyle}>
+const dateFormat = 'YYYY/MM/DD HH:mm:ss';
+class Home extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+           date:[],
+        };
+    }
+    
+    componentDidMount=()=> {
+        let date_array=[];
+        for(let i=1;i<=5;i++){
+            var date= new Date(Date.now() - i * 24 * 60 * 60 * 1000) 
+            let list={};
+            list.day=moment(date).format('ddd');
+            list.date=moment(date).format('D')
+            date_array.push(list);
+        }
+       
+        this.setState({date:date_array})
+    }
+    handledailyActivity = (data) => {
+        console.log("open",data)
+    }
+    render() {
+        console.log("this.state",this.state.date)
+        return (
+            <View style={styles.appStyle}>
+                <View style={styles.containerStyle}>
+                    <Text style={styles.headerTextStyle}> {`${strings.hello} Santhosh`} </Text>
+                    <View style={styles.flexDisplay}>
+                        <Text style={styles.workOutStyle}>{strings.workOut}</Text>
+                        <Text style={styles.workOutStyle}>{strings.find} </Text>
+                    </View>
+                    <View>
+                        <Image source={require('../images/ad.png')} style={styles.adImageStyle} />
+                    </View>
+                    <View >
+                        <Text style={styles.todayActivityStyle}>{strings.todayActivity}</Text>
+                    </View>
+                    <View style={[styles.flexDisplay, styles.justifyStyle]}>
+                        <View style={styles.cardStyletodayActivity}>
+                            <View style={styles.flexDisplay}>
+                                <Image source={require('../images/shoes.png')} style={[styles.adImageStyle,styles.cardImgageStyle]} />
+                                <Text style={styles.cardHeaderStyle}>{strings.steps}</Text>
+                            </View>
+                        </View>
+                        <View style={styles.cardStyletodayActivity}>
                         <View style={styles.flexDisplay}>
-                            <Image source={require('../images/shoes.png')} style={styles.adImageStyle} style={styles.cardImgageStyle} />
-                            <Text style={styles.cardHeaderStyle}>{strings.steps}</Text>
+                                <Image source={require('../images/calories.png')} style={[styles.adImageStyle,styles.cardImgageStyle]} />
+                                <Text style={styles.cardHeaderStyle}>{strings.calories}</Text>
+                            </View>
                         </View>
                     </View>
-                    <View style={styles.cardStyle}>
-
+                    <View >
+                        <Text style={styles.dailyActivityStyle}>{strings.dailyActivity}</Text>
                     </View>
-                </View>
-            </View>
-        </View>
-    );
+                    <View style={[styles.flexDisplay, styles.justifyStyle]}>
+                        {this.state.date.length !== 0 && this.state.date.map((element,index) => (
+                            <TouchableOpacity onPress={()=>this.handledailyActivity(element)} style={styles.cardStyledailyActivity} key={index}>
+                                <Text style={styles.cardHeaderStyle}>{element.day}</Text>
+                                <Text style={styles.cardContentStyle}>{element.date}</Text>
+                            </TouchableOpacity>
+                        )
+                        )}
+                            </View>
+                        </View>
+                    </View>
+        );
+    }
+   
 };
 
 const styles = StyleSheet.create({
     appStyle: {
         backgroundColor: "#f0f2ff",
-        height: "100%",
+        height: "83%",
     },
     containerStyle: {
         marginTop: 16,
@@ -69,15 +112,30 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold"
     },
+    dailyActivityStyle: {
+        paddingTop:25,
+        fontSize: 18,
+        fontWeight: "bold"
+    },
     adImageStyle: {
         width: "100%",
         height: 200,
         marginVertical: 10,
         borderRadius: 5
     },
-    cardStyle: {
+    cardStyletodayActivity: {
         elevation: 5,
         width: 140,
+        height: 80,
+        borderRadius: 10,
+        backgroundColor: '#eff1ff',
+        marginTop: 10,
+        padding: 10,
+        paddingTop: 5
+    },
+    cardStyledailyActivity: {
+        elevation: 5,
+        width: 70,
         height: 80,
         borderRadius: 10,
         backgroundColor: '#eff1ff',
@@ -95,6 +153,22 @@ const styles = StyleSheet.create({
     cardHeaderStyle:{
         fontSize: 15,
         color: "#979ba5"
+    },
+    cardContentStyle:{
+        paddingTop:20
+    },
+    footerCardStyle:{
+        elevation: 5,
+        width: 70,
+        height: 70,
+        borderRadius: 10,
+        backgroundColor: '#eff1ff',
+        marginTop: 25,
+        padding: 10,
+        // paddingTop: 20
+    },
+    contentAlign:{
+        alignItems:"center"
     }
 });
 

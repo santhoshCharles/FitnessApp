@@ -24,13 +24,17 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import Home from './screens/Home';
+import Footer from './screens/Footer';
+import Activity from './screens/Activity'
 
 
 
 const App: () => React$Node = () => {
   return (
    <View>
-     <Home/>
+     {/* <Home/> */}
+     <Activity/>
+     <Footer/>
    </View>
   );
 };
